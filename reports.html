@@ -1,0 +1,77 @@
+<html xmlns="http://www.w3.org/1999/xhtml Jump ">
+<style>
+*{
+	margin:0;
+}
+</style>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Reports</title>
+</head>
+
+<body style="background-color: #000000">
+<iframe name="rotate" id="rotate" src="about:blank" scrolling="no" framespacing="0" frameborder="0" marginwidth="0" marginheight="0" border="0" style="width:100%; height:100%; margin:0;"></iframe>
+
+<script language="JavaScript" type="text/javascript">
+
+document.onkeydown = checkKey;
+
+function checkKey(e) {
+
+    e = e || window.event;
+
+    if (e.keyCode == '37') {
+	//left arrow
+		rotatorForce(0);
+    }
+    else if (e.keyCode == '39') {
+       // right arrow
+		rotatorForce(1);
+    }
+	else if (e.keyCode == '40') {
+		// down arrow
+		if(running==0){
+			running = 1;
+		}
+		else{
+			running = 0;
+		}
+    }
+
+}
+function rotatorForce(i){
+	if(i==0){
+		currentpage=currentpage-1;
+		if (currentpage < 0) {
+			currentpage = pages.length-1;
+		}
+	}
+	else{
+		currentpage++;
+		if (currentpage >= pages.length) {
+			currentpage = 0;
+		}
+	}
+	document.all.rotate.src = pages[currentpage];
+}
+var pages = new Array('http://mti-dbs2/Reports/Pages/Report.aspx?ItemPath=%2fDB2EXAMPLE', 'http://mti-dbs2/ReportServer/Pages/ReportViewer.aspx?%2fStripPaxOpenOrders&rc:ToolBar=False&rc:Zoom=150&rc:ScrollBars=False&rs:Command=Render&ITCLS=18&CELL=SPAXCELL3&ROWCNT=25');
+
+var rint = 10000;
+var running = 0;
+var currentpage = -1;
+function rotator() {
+	if(running ==0){
+		currentpage++;
+		if (currentpage >= pages.length) {
+			currentpage = 0;
+		}
+		document.all.rotate.src = pages[currentpage];
+	}
+	setTimeout('rotator()', rint);
+}
+rotator();
+</script>
+
+</body>
+
+</html>
